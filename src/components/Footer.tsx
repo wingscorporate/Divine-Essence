@@ -16,7 +16,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigateTo }) => 
           {/* Col 1 & 2: Brand & Description */}
           <div className="lg:col-span-2 space-y-4">
             <div className="bg-white/10 p-2 rounded-xl inline-block">
-              <BrandLogo className="h-12 w-auto brightness-110" lightBackground={false} />
+              <BrandLogo className="h-14 w-auto brightness-110" lightBackground={false} />
             </div>
 
             <p className="text-sm text-[#94A3B8] leading-relaxed max-w-sm">
