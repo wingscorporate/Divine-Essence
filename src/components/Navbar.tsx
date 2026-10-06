@@ -68,7 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
             className="flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2457D6] rounded-md"
             aria-label="Divine Essence Home"
           >
-            <BrandLogo className="h-12 sm:h-14 w-auto" />
+            <BrandLogo className="h-14 sm:h-16 w-auto" />
           </a>
 
           {/* Desktop Navigation Links */}
@@ -141,7 +141,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-b border-[#EEF2F6] px-4 pt-3 pb-6 shadow-xl animate-in slide-in-from-top-2 duration-150">
           <div className="flex items-center justify-between pb-3 mb-2 border-b border-[#F1F5F9]">
-            <BrandLogo className="h-10 w-auto" />
+            <BrandLogo className="h-11 w-auto" />
             <button
               onClick={() => setMobileMenuOpen(false)}
               className="p-1.5 text-[#667085] hover:text-[#152033]"
