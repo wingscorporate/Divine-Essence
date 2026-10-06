@@ -188,7 +188,7 @@ export const Hero: React.FC<HeroProps> = ({
                     </div>
                     <div className="flex justify-between items-center pt-2 text-sm">
                       <span className="font-bold text-[#152033]">Estimated Gross Margin</span>
-                      <span className="font-extrabold text-[#16A36A] text-base">+₹520.00 (57.8%)</span>
+                      <span className="font-extrabold text-[#263238] text-base">+₹520.00 (<span className="profit-margin-value">57.8%</span>)</span>
                     </div>
                   </div>
                 </div>

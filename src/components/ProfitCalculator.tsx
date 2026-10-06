@@ -404,8 +404,8 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
                 <div className="text-3xl sm:text-4xl font-extrabold text-[#16A36A] tracking-tight">
                   ₹{estimatedProfitPerOrder.toLocaleString('en-IN')}
                 </div>
-                <span className="text-xs font-bold text-[#16A36A] mt-1 inline-block">
-                  {profitMarginPercent.toFixed(1)}% Profit Margin
+                <span className="text-xs font-bold text-[#5F6B70] mt-1 inline-block">
+                  <span className="profit-margin-value">{profitMarginPercent.toFixed(1)}%</span> Profit Margin
                 </span>
               </div>
 
@@ -467,9 +467,9 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
                   <span>Estimated Gross Profit</span>
                   <span>{formatINR(monthlyGrossProfit)}</span>
                 </div>
-                <div className="flex justify-between text-xs font-semibold text-[#667085]">
+                <div className="flex justify-between text-xs font-semibold text-[#5F6B70]">
                   <span>Estimated Profit Margin</span>
-                  <span>{profitMarginPercent.toFixed(1)}%</span>
+                  <span className="profit-margin-value">{profitMarginPercent.toFixed(1)}%</span>
                 </div>
               </div>
             </div>

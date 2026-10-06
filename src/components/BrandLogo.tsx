@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import brandLogo from '../brandlogo.png';
+import brandLogo from '../brandlogo-transparent.png';
 
 interface BrandLogoProps {
   className?: string;
@@ -17,7 +17,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   if (imageError) {
     return (
       <div className={`flex items-center gap-3 ${className}`}>
-        <div className="w-10 h-10 rounded-xl bg-[#2457D6] flex items-center justify-center text-white font-bold text-lg shadow-sm">
+        <div className="w-10 h-10 rounded-xl bg-transparent flex items-center justify-center text-white font-bold text-lg shadow-sm">
           DE
         </div>
         <div>

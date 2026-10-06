@@ -15,7 +15,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigateTo }) => 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[#243247]">
           {/* Col 1 & 2: Brand & Description */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="bg-white/10 p-2 rounded-xl inline-block">
+            <div className="bg-transparent p-2 rounded-xl inline-block">
               <BrandLogo className="h-14 w-auto brightness-110" lightBackground={false} />
             </div>
 

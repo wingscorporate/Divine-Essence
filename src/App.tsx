@@ -6,7 +6,7 @@ import { Services } from './components/Services';
 import { ProfitCalculator } from './components/ProfitCalculator';
 import { WhyDivineEssence } from './components/WhyDivineEssence';
 import { HowItWorks } from './components/HowItWorks';
-import { ShippingPartners } from './components/ShippingPartners';
+import { ShippingPartnerLogos } from './components/ShippingPartnerLogos';
 import { ProductSupplyInfo } from './components/ProductSupplyInfo';
 import { Comparison } from './components/Comparison';
 import { Audience } from './components/Audience';
@@ -68,8 +68,8 @@ export default function App() {
         {/* 7. How It Works */}
         <HowItWorks onStartFlow={() => scrollToSection('services')} />
 
-        {/* 8. Shipping Partner Network */}
-        <ShippingPartners />
+        {/* 8. Shipping Partner Logo Marquee */}
+        <ShippingPartnerLogos />
 
         {/* 9. Product Supply Positioning */}
         <ProductSupplyInfo
