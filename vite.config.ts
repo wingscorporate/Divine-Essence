@@ -5,8 +5,8 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    // GitHub Pages serves this project from /Divine-Essence/.
-    base: '/Divine-Essence/',
+    // Relative asset paths work on both the custom domain and the repository URL.
+    base: './',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
