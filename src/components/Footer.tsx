@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrandLogo } from './BrandLogo';
 import { LegalDocType } from './LegalModal';
-import { PhoneCall, Mail, MapPin, ArrowUpRight, MessageCircle } from 'lucide-react';
+import { PhoneCall, MapPin, ArrowUpRight, MessageCircle } from 'lucide-react';
 
 interface FooterProps {
   onOpenLegal: (type: LegalDocType) => void;
@@ -40,10 +40,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigateTo }) => 
               <div className="flex items-center gap-2">
                 <PhoneCall className="w-4 h-4 text-[#2457D6]" />
                 <span>Call: +91 92305 54211</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#2457D6]" />
-                <span>support@divineessence.in</span>
               </div>
             </div>
           </div>
