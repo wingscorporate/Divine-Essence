@@ -923,6 +923,8 @@ footer .border-b {
 
 .customer-reviews-track {
   animation: customer-reviews-scroll 54s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .customer-reviews-marquee:hover .customer-reviews-track {
@@ -931,11 +933,11 @@ footer .border-b {
 
 @keyframes customer-reviews-scroll {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 
   to {
-    transform: translateX(calc(-50% - 0.625rem));
+    transform: translate3d(calc(-50% - 0.625rem), 0, 0);
   }
 }
 

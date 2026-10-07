@@ -12,24 +12,35 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
+    let frameId = 0;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15);
-      
-      const sections = ['home', 'supplier', 'shipping', 'calculator', 'partners', 'how-it-works', 'faq', 'contact'];
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 140 && rect.bottom >= 140) {
-            setActiveSection(section);
-            break;
+      if (frameId) return;
+
+      frameId = window.requestAnimationFrame(() => {
+        frameId = 0;
+        const nextIsScrolled = window.scrollY > 15;
+        setIsScrolled((current) => (current === nextIsScrolled ? current : nextIsScrolled));
+
+        const sections = ['home', 'supplier', 'shipping', 'calculator', 'partners', 'how-it-works', 'faq', 'contact'];
+        for (const section of sections) {
+          const el = document.getElementById(section);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 140 && rect.bottom >= 140) {
+              setActiveSection((current) => (current === section ? current : section));
+              break;
+            }
           }
         }
-      }
+      });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (frameId) window.cancelAnimationFrame(frameId);
+    };
   }, []);
 
   const navLinks = [

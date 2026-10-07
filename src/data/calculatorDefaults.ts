@@ -4,6 +4,7 @@ export const DEFAULT_CALCULATOR_VALUES: CalculatorState = {
   productCost: 150,
   sellingPrice: 899,
   shippingCost: 59,
+  rtoPercentage: 0,
   advertisingCost: 150,
   packagingCost: 20,
   codCharges: 0,
@@ -17,6 +18,7 @@ export interface ProductPreset {
   productCost: number;
   sellingPrice: number;
   shippingCost: number;
+  rtoPercentage: number;
   advertisingCost: number;
   packagingCost: number;
   codCharges: number;
@@ -30,6 +32,7 @@ export const PRODUCT_PRESETS: ProductPreset[] = [
     productCost: 150,
     sellingPrice: 899,
     shippingCost: 59,
+    rtoPercentage: 0,
     advertisingCost: 150,
     packagingCost: 20,
     codCharges: 0,
@@ -41,6 +44,7 @@ export const PRODUCT_PRESETS: ProductPreset[] = [
     productCost: 120,
     sellingPrice: 799,
     shippingCost: 59,
+    rtoPercentage: 0,
     advertisingCost: 140,
     packagingCost: 18,
     codCharges: 0,
@@ -52,6 +56,7 @@ export const PRODUCT_PRESETS: ProductPreset[] = [
     productCost: 190,
     sellingPrice: 1199,
     shippingCost: 59,
+    rtoPercentage: 0,
     advertisingCost: 180,
     packagingCost: 25,
     codCharges: 0,
@@ -63,6 +68,7 @@ export const PRODUCT_PRESETS: ProductPreset[] = [
     productCost: 95,
     sellingPrice: 849,
     shippingCost: 59,
+    rtoPercentage: 0,
     advertisingCost: 130,
     packagingCost: 15,
     codCharges: 0,

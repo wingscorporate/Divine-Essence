@@ -4,6 +4,7 @@ export interface CalculatorState {
   productCost: number;
   sellingPrice: number;
   shippingCost: number;
+  rtoPercentage: number;
   advertisingCost: number;
   packagingCost: number;
   codCharges: number;

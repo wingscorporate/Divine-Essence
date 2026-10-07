@@ -38,6 +38,7 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
       productCost: preset.productCost,
       sellingPrice: preset.sellingPrice,
       shippingCost: preset.shippingCost,
+      rtoPercentage: preset.rtoPercentage,
       advertisingCost: preset.advertisingCost,
       packagingCost: preset.packagingCost,
       codCharges: preset.codCharges,
@@ -53,9 +54,11 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
   };
 
   // Calculations
+  const expectedRtoCostPerOrder = values.shippingCost * (values.rtoPercentage / 100);
   const totalCostPerOrder =
     values.productCost +
     values.shippingCost +
+    expectedRtoCostPerOrder +
     values.advertisingCost +
     values.packagingCost +
     values.codCharges +
@@ -71,6 +74,7 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
   const monthlyRevenue = values.sellingPrice * values.monthlyOrders;
   const monthlyProductCost = values.productCost * values.monthlyOrders;
   const monthlyShippingCost = values.shippingCost * values.monthlyOrders;
+  const monthlyRtoCost = expectedRtoCostPerOrder * values.monthlyOrders;
   const monthlyAdCost = values.advertisingCost * values.monthlyOrders;
   const monthlyTotalExpenses = totalCostPerOrder * values.monthlyOrders;
   const monthlyGrossProfit = estimatedProfitPerOrder * values.monthlyOrders;
@@ -217,6 +221,32 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
                 </div>
                 <p className="text-[11px] text-[#16A36A] mt-1 font-medium">
                   Divine Essence shipping starts from ₹59 Pan India under applicable plans.
+                </p>
+              </div>
+
+              {/* Estimated RTO Rate */}
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label htmlFor="rtoPercentage" className="text-xs font-semibold text-[#152033]">
+                    Estimated RTO Rate
+                  </label>
+                  <span className="text-xs font-bold text-[#152033]">{values.rtoPercentage}%</span>
+                </div>
+                <div className="relative rounded-lg shadow-2xs">
+                  <input
+                    id="rtoPercentage"
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="0.5"
+                    value={values.rtoPercentage}
+                    onChange={(e) => handleInputChange('rtoPercentage', Math.min(100, parseFloat(e.target.value) || 0))}
+                    className="w-full pr-10 pl-4 py-2.5 text-sm font-semibold rounded-lg border border-[#CBD5E1] focus:ring-2 focus:ring-[#2457D6] focus:border-[#2457D6] text-[#152033]"
+                  />
+                  <span className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#667085] text-sm">%</span>
+                </div>
+                <p className="text-[11px] text-[#667085] mt-1">
+                  Expected RTO cost is estimated from shipping cost × RTO rate.
                 </p>
               </div>
 
@@ -370,6 +400,12 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
                   <span className="text-[#667085]">Shipping:</span>
                   <span className="font-semibold text-[#152033]">₹{values.shippingCost}</span>
                 </div>
+                {values.rtoPercentage > 0 && (
+                  <div className="flex justify-between py-1 border-b border-[#F8FAFC]">
+                    <span className="text-[#667085]">RTO ({values.rtoPercentage}%):</span>
+                    <span className="font-semibold text-[#152033]">₹{expectedRtoCostPerOrder.toFixed(2)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between py-1 border-b border-[#F8FAFC]">
                   <span className="text-[#667085]">Ads:</span>
                   <span className="font-semibold text-[#152033]">₹{values.advertisingCost}</span>
@@ -455,6 +491,12 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
                   <span>Total Shipping Cost</span>
                   <span className="font-semibold text-[#152033]">{formatINR(monthlyShippingCost)}</span>
                 </div>
+                {values.rtoPercentage > 0 && (
+                  <div className="flex justify-between text-[#667085]">
+                    <span>Total RTO Cost ({values.rtoPercentage}%)</span>
+                    <span className="font-semibold text-[#152033]">{formatINR(monthlyRtoCost)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-[#667085]">
                   <span>Total Advertising Cost</span>
                   <span className="font-semibold text-[#152033]">{formatINR(monthlyAdCost)}</span>

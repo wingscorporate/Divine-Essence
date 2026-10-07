@@ -37,6 +37,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       <img
         src={brandLogo}
         alt="Divine Essence"
+        decoding="async"
         className={`object-contain transition-transform duration-200 ${className}`}
         onError={() => setImageError(true)}
       />
