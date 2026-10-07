@@ -12,6 +12,7 @@ import { Comparison } from './components/Comparison';
 import { Audience } from './components/Audience';
 import { CallToAction } from './components/CallToAction';
 import { FAQ } from './components/FAQ';
+import { CustomerReviews } from './components/CustomerReviews';
 import { ContactForm } from './components/ContactForm';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { LegalModal, LegalDocType } from './components/LegalModal';
@@ -91,7 +92,10 @@ export default function App() {
         {/* 13. FAQ */}
         <FAQ />
 
-        {/* 14. Contact / Lead Form */}
+        {/* 14. Customer Reviews */}
+        <CustomerReviews />
+
+        {/* 15. Contact / Lead Form */}
         <ContactForm
           initialService={selectedService}
           initialNotes={calculatorNotes}

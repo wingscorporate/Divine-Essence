@@ -881,3 +881,66 @@ footer button:hover {
 footer .border-b {
   border-color: #35464E !important;
 }
+
+.customer-reviews-section {
+  background: #F7F4EE !important;
+  background-image: none !important;
+}
+
+#reviews {
+  background: #182229 !important;
+  background-image: linear-gradient(135deg, rgba(11, 17, 23, 0.94), rgba(22, 35, 45, 0.9)), url("./assets/logistics-network-bg.png") !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+#reviews h2,
+#reviews h3 {
+  color: #FFFFFF !important;
+}
+
+#reviews p {
+  color: #D8E1E5 !important;
+}
+
+#reviews .customer-review-card {
+  background: #FFFFFF !important;
+  background-image: none !important;
+  border-color: #E5E8EA !important;
+}
+
+#reviews .customer-review-card p {
+  color: #5F6B70 !important;
+}
+
+#reviews .customer-review-card h3 {
+  color: #182229 !important;
+}
+
+.customer-reviews-marquee {
+  overflow: hidden;
+}
+
+.customer-reviews-track {
+  animation: customer-reviews-scroll 54s linear infinite;
+}
+
+.customer-reviews-marquee:hover .customer-reviews-track {
+  animation-play-state: paused;
+}
+
+@keyframes customer-reviews-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 0.625rem));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .customer-reviews-track {
+    animation-play-state: paused;
+  }
+}
