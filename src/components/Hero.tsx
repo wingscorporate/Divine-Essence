@@ -244,13 +244,13 @@ export const Hero: React.FC<HeroProps> = ({
               </div>
 
               {/* Floating Badge: Multi-Courier Network */}
-              <div className="hidden sm:flex absolute -bottom-5 -left-5 bg-white rounded-xl p-3 border border-[#E2E8F0] shadow-lg items-center gap-3">
+              <div className="hidden sm:flex absolute -bottom-5 -left-5 max-w-[calc(100%-1rem)] bg-white rounded-xl p-3 border border-[#E2E8F0] shadow-lg items-center gap-3">
                 <div className="w-9 h-9 rounded-lg bg-[#16A36A] text-white flex items-center justify-center font-bold">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
-                <div className="text-left pr-2">
-                  <div className="text-xs font-bold text-[#152033]">₹0 RTO Option</div>
-                  <div className="text-[10px] text-[#667085]">On qualified shipping plans</div>
+                <div className="text-left pr-2 min-w-0">
+                  <div className="text-xs font-bold text-[#152033] whitespace-nowrap">₹0 RTO Option</div>
+                  <div className="text-[10px] leading-tight text-[#667085] whitespace-normal">On qualified shipping plans</div>
                 </div>
               </div>
             </div>

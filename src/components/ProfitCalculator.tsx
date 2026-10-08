@@ -54,30 +54,42 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
   };
 
   // Calculations
-  const expectedRtoCostPerOrder = values.shippingCost * (values.rtoPercentage / 100);
+  const rtoOrders = values.monthlyOrders * (values.rtoPercentage / 100);
+  const successfulDeliveredOrders = Math.max(0, values.monthlyOrders - rtoOrders);
+  const rtoCourierChargesPerOrder = 0;
   const totalCostPerOrder =
     values.productCost +
     values.shippingCost +
-    expectedRtoCostPerOrder +
+    rtoCourierChargesPerOrder +
     values.advertisingCost +
     values.packagingCost +
     values.codCharges +
     values.otherCost;
 
-  const estimatedProfitPerOrder = values.sellingPrice - totalCostPerOrder;
-  const profitMarginPercent =
-    values.sellingPrice > 0
-      ? (estimatedProfitPerOrder / values.sellingPrice) * 100
-      : 0;
-
   // Monthly Volume Projections
-  const monthlyRevenue = values.sellingPrice * values.monthlyOrders;
+  const monthlyRevenue = successfulDeliveredOrders * values.sellingPrice;
   const monthlyProductCost = values.productCost * values.monthlyOrders;
   const monthlyShippingCost = values.shippingCost * values.monthlyOrders;
-  const monthlyRtoCost = expectedRtoCostPerOrder * values.monthlyOrders;
+  const monthlyRtoCourierCharges = rtoCourierChargesPerOrder * values.monthlyOrders;
   const monthlyAdCost = values.advertisingCost * values.monthlyOrders;
+  const monthlyPackagingCost = values.packagingCost * values.monthlyOrders;
+  const monthlyCodCost = values.codCharges * values.monthlyOrders;
+  const monthlyOtherCost = values.otherCost * values.monthlyOrders;
   const monthlyTotalExpenses = totalCostPerOrder * values.monthlyOrders;
-  const monthlyGrossProfit = estimatedProfitPerOrder * values.monthlyOrders;
+  const monthlyGrossProfit = monthlyRevenue - monthlyTotalExpenses;
+  const expectedRevenuePerAttemptedOrder = values.monthlyOrders > 0
+    ? monthlyRevenue / values.monthlyOrders
+    : 0;
+  const expectedProfitPerAttemptedOrder = values.monthlyOrders > 0
+    ? monthlyGrossProfit / values.monthlyOrders
+    : 0;
+  const profitMarginPercent = monthlyRevenue > 0
+    ? (monthlyGrossProfit / monthlyRevenue) * 100
+    : 0;
+
+  const formatOrderCount = (count: number) => count.toLocaleString('en-IN', {
+    maximumFractionDigits: 2,
+  });
 
   const formatINR = (amount: number) => {
     return new Intl.NumberFormat('en-IN', {
@@ -246,7 +258,7 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
                   <span className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#667085] text-sm">%</span>
                 </div>
                 <p className="text-[11px] text-[#667085] mt-1">
-                  Expected RTO cost is estimated from shipping cost × RTO rate.
+                  RTO courier charges are ₹0. Returned orders reduce successful sales and revenue.
                 </p>
               </div>
 
@@ -400,12 +412,10 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
                   <span className="text-[#667085]">Shipping:</span>
                   <span className="font-semibold text-[#152033]">₹{values.shippingCost}</span>
                 </div>
-                {values.rtoPercentage > 0 && (
-                  <div className="flex justify-between py-1 border-b border-[#F8FAFC]">
-                    <span className="text-[#667085]">RTO ({values.rtoPercentage}%):</span>
-                    <span className="font-semibold text-[#152033]">₹{expectedRtoCostPerOrder.toFixed(2)}</span>
-                  </div>
-                )}
+                <div className="flex justify-between py-1 border-b border-[#F8FAFC]">
+                  <span className="text-[#667085]">RTO Courier Charges:</span>
+                  <span className="font-semibold text-[#152033]">₹0</span>
+                </div>
                 <div className="flex justify-between py-1 border-b border-[#F8FAFC]">
                   <span className="text-[#667085]">Ads:</span>
                   <span className="font-semibold text-[#152033]">₹{values.advertisingCost}</span>
@@ -427,22 +437,26 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
                   </div>
                 )}
                 <div className="flex justify-between pt-2 text-sm font-bold text-[#152033] border-t border-[#EEF2F6]">
-                  <span>Total Estimated Cost:</span>
-                  <span>₹{totalCostPerOrder}</span>
+                  <span>Total Expense Per Attempted Order:</span>
+                  <span>₹{totalCostPerOrder.toFixed(2)}</span>
                 </div>
               </div>
 
               {/* Big Profit Per Order Highlight */}
               <div className="bg-[#EAF8F1] rounded-xl p-4 border border-[#C6F0D9] text-center mb-4">
                 <span className="text-xs font-semibold text-[#16A36A] uppercase tracking-wider block mb-0.5">
-                  Estimated Profit Per Order
+                  Expected Profit Per Attempted Order
                 </span>
                 <div className="text-3xl sm:text-4xl font-extrabold text-[#16A36A] tracking-tight">
-                  ₹{estimatedProfitPerOrder.toLocaleString('en-IN')}
+                  {formatINR(expectedProfitPerAttemptedOrder)}
                 </div>
                 <span className="text-xs font-bold text-[#5F6B70] mt-1 inline-block">
-                  <span className="profit-margin-value">{profitMarginPercent.toFixed(1)}%</span> Profit Margin
+                  <span className="profit-margin-value">{profitMarginPercent.toFixed(2)}%</span> Profit Margin
                 </span>
+              </div>
+
+              <div className="text-[11px] leading-relaxed text-[#667085] mb-4">
+                Expected Revenue Per Attempted Order: {formatINR(expectedRevenuePerAttemptedOrder)}. RTO courier charges are ₹0 with Divine Essence. Returned orders reduce successful sales and revenue. Other incurred order expenses are still included.
               </div>
 
               {/* Order Volume Multiplier */}
@@ -491,27 +505,49 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
                   <span>Total Shipping Cost</span>
                   <span className="font-semibold text-[#152033]">{formatINR(monthlyShippingCost)}</span>
                 </div>
-                {values.rtoPercentage > 0 && (
-                  <div className="flex justify-between text-[#667085]">
-                    <span>Total RTO Cost ({values.rtoPercentage}%)</span>
-                    <span className="font-semibold text-[#152033]">{formatINR(monthlyRtoCost)}</span>
-                  </div>
-                )}
+                <div className="flex justify-between text-[#667085]">
+                  <span>Expected RTO Orders ({values.rtoPercentage}%)</span>
+                  <span className="font-semibold text-[#152033]">{formatOrderCount(rtoOrders)}</span>
+                </div>
+                <div className="flex justify-between text-[#667085]">
+                  <span>Successful Delivered Orders</span>
+                  <span className="font-semibold text-[#152033]">{formatOrderCount(successfulDeliveredOrders)}</span>
+                </div>
+                <div className="flex justify-between text-[#667085]">
+                  <span>Total RTO Courier Charges</span>
+                  <span className="font-semibold text-[#152033]">{formatINR(monthlyRtoCourierCharges)}</span>
+                </div>
                 <div className="flex justify-between text-[#667085]">
                   <span>Total Advertising Cost</span>
                   <span className="font-semibold text-[#152033]">{formatINR(monthlyAdCost)}</span>
                 </div>
+                <div className="flex justify-between text-[#667085]">
+                  <span>Total Packaging Cost</span>
+                  <span className="font-semibold text-[#152033]">{formatINR(monthlyPackagingCost)}</span>
+                </div>
+                {values.codCharges > 0 && (
+                  <div className="flex justify-between text-[#667085]">
+                    <span>Total Payment/COD Cost</span>
+                    <span className="font-semibold text-[#152033]">{formatINR(monthlyCodCost)}</span>
+                  </div>
+                )}
+                {values.otherCost > 0 && (
+                  <div className="flex justify-between text-[#667085]">
+                    <span>Total Other Cost</span>
+                    <span className="font-semibold text-[#152033]">{formatINR(monthlyOtherCost)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-[#667085] pt-1 border-t border-[#F8FAFC]">
                   <span>Total Estimated Expenses</span>
                   <span className="font-bold text-[#152033]">{formatINR(monthlyTotalExpenses)}</span>
                 </div>
                 <div className="flex justify-between text-[#16A36A] pt-2 text-sm font-extrabold border-t border-[#EEF2F6]">
-                  <span>Estimated Gross Profit</span>
+                  <span>Estimated Monthly Profit</span>
                   <span>{formatINR(monthlyGrossProfit)}</span>
                 </div>
                 <div className="flex justify-between text-xs font-semibold text-[#5F6B70]">
                   <span>Estimated Profit Margin</span>
-                  <span className="profit-margin-value">{profitMarginPercent.toFixed(1)}%</span>
+                  <span className="profit-margin-value">{profitMarginPercent.toFixed(2)}%</span>
                 </div>
               </div>
             </div>
