@@ -57,26 +57,28 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
   const rtoOrders = values.monthlyOrders * (values.rtoPercentage / 100);
   const successfulDeliveredOrders = Math.max(0, values.monthlyOrders - rtoOrders);
   const rtoCourierChargesPerOrder = 0;
-  const totalCostPerOrder =
-    values.productCost +
-    values.shippingCost +
-    rtoCourierChargesPerOrder +
-    values.advertisingCost +
-    values.packagingCost +
-    values.codCharges +
-    values.otherCost;
 
   // Monthly Volume Projections
   const monthlyRevenue = successfulDeliveredOrders * values.sellingPrice;
-  const monthlyProductCost = values.productCost * values.monthlyOrders;
-  const monthlyShippingCost = values.shippingCost * values.monthlyOrders;
+  const monthlyProductCost = values.productCost * successfulDeliveredOrders;
+  const monthlyShippingCost = values.shippingCost * successfulDeliveredOrders;
   const monthlyRtoCourierCharges = rtoCourierChargesPerOrder * values.monthlyOrders;
   const monthlyAdCost = values.advertisingCost * values.monthlyOrders;
   const monthlyPackagingCost = values.packagingCost * values.monthlyOrders;
   const monthlyCodCost = values.codCharges * values.monthlyOrders;
   const monthlyOtherCost = values.otherCost * values.monthlyOrders;
-  const monthlyTotalExpenses = totalCostPerOrder * values.monthlyOrders;
+  const monthlyTotalExpenses =
+    monthlyProductCost +
+    monthlyShippingCost +
+    monthlyRtoCourierCharges +
+    monthlyAdCost +
+    monthlyPackagingCost +
+    monthlyCodCost +
+    monthlyOtherCost;
   const monthlyGrossProfit = monthlyRevenue - monthlyTotalExpenses;
+  const totalExpensePerAttemptedOrder = values.monthlyOrders > 0
+    ? monthlyTotalExpenses / values.monthlyOrders
+    : 0;
   const expectedRevenuePerAttemptedOrder = values.monthlyOrders > 0
     ? monthlyRevenue / values.monthlyOrders
     : 0;
@@ -438,20 +440,20 @@ export const ProfitCalculator: React.FC<ProfitCalculatorProps> = ({ onStartWithC
                 )}
                 <div className="flex justify-between pt-2 text-sm font-bold text-[#152033] border-t border-[#EEF2F6]">
                   <span>Total Expense Per Attempted Order:</span>
-                  <span>₹{totalCostPerOrder.toFixed(2)}</span>
+                  <span>₹{totalExpensePerAttemptedOrder.toFixed(2)}</span>
                 </div>
               </div>
 
               {/* Big Profit Per Order Highlight */}
-              <div className="bg-[#EAF8F1] rounded-xl p-4 border border-[#C6F0D9] text-center mb-4">
-                <span className="text-xs font-semibold text-[#16A36A] uppercase tracking-wider block mb-0.5">
+              <div className="bg-[#EAF8F1] rounded-xl p-4 border border-[#16A34A]/40 text-center mb-4">
+                <span className="text-xs font-semibold text-[#F58220] uppercase tracking-wider block mb-0.5">
                   Expected Profit Per Attempted Order
                 </span>
-                <div className="text-3xl sm:text-4xl font-extrabold text-[#16A36A] tracking-tight">
+                <div className="text-3xl sm:text-4xl font-extrabold text-[#16A34A] tracking-tight">
                   {formatINR(expectedProfitPerAttemptedOrder)}
                 </div>
-                <span className="text-xs font-bold text-[#5F6B70] mt-1 inline-block">
-                  <span className="profit-margin-value">{profitMarginPercent.toFixed(2)}%</span> Profit Margin
+                <span className="text-xs font-bold text-[#303E45] mt-1 inline-block">
+                  <span className="profit-margin-value text-[#16A34A]">{profitMarginPercent.toFixed(2)}%</span> Profit Margin
                 </span>
               </div>
 
