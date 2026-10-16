@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { MessageCircle, X, Send, ArrowRight } from 'lucide-react';
+import { PHONE_NUMBER_DISPLAY, getWhatsAppUrl } from '../phoneNumber';
 
 interface WhatsAppButtonProps {
   defaultPhone?: string;
 }
 
-export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
-  defaultPhone = '919230554211', // Configured user number: 92305 54211 (+91)
-}) => {
+export const WhatsAppButton: React.FC<WhatsAppButtonProps> = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userMessage, setUserMessage] = useState(
     'Hi Divine Essence team, I want to learn more about your product supply and shipping services for my online store.'
@@ -20,8 +19,7 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   ];
 
   const handleSendMessage = (msgToSend?: string) => {
-    const text = encodeURIComponent(msgToSend || userMessage);
-    const whatsappUrl = `https://wa.me/${defaultPhone}?text=${text}`;
+    const whatsappUrl = getWhatsAppUrl(msgToSend || userMessage);
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     setIsOpen(false);
   };
@@ -32,7 +30,7 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
       <div className="fixed bottom-6 right-6 z-40 group">
         {/* Tooltip on hover for desktop */}
         <div className="hidden md:block absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#152033] text-white text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none shadow-md">
-          Chat With Divine Essence (+91 92305 54211)
+          Chat With Divine Essence ({PHONE_NUMBER_DISPLAY})
           <div className="absolute top-1/2 -right-1 -translate-y-1/2 border-4 border-transparent border-l-[#152033]" />
         </div>
 
@@ -60,7 +58,7 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
               </div>
               <div>
                 <h4 className="font-bold text-sm leading-tight">Divine Essence Support</h4>
-                <p className="text-[11px] text-white/90 font-medium">+91 92305 54211 · Online</p>
+                <p className="text-[11px] text-white/90 font-medium">{PHONE_NUMBER_DISPLAY} · Online</p>
               </div>
             </div>
             <button

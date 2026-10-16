@@ -2,6 +2,7 @@ import React from 'react';
 import { BrandLogo } from './BrandLogo';
 import { LegalDocType } from './LegalModal';
 import { PhoneCall, MapPin, ArrowUpRight, MessageCircle } from 'lucide-react';
+import { PHONE_NUMBER_DISPLAY, getWhatsAppUrl } from '../phoneNumber';
 
 interface FooterProps {
   onOpenLegal: (type: LegalDocType) => void;
@@ -29,17 +30,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigateTo }) => 
                 <span>Pan India Fulfilment & Sourcing Network</span>
               </div>
               <a
-                href="https://wa.me/919230554211?text=Hi%20Divine%20Essence%2C%20I%20want%20to%20learn%20more%20about%20your%20services"
+                href={getWhatsAppUrl('Hi Divine Essence, I want to learn more about your services')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 hover:text-[#25D366] transition-colors"
               >
                 <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                <span>WhatsApp: +91 92305 54211</span>
+                <span>WhatsApp: {PHONE_NUMBER_DISPLAY}</span>
               </a>
               <div className="flex items-center gap-2">
                 <PhoneCall className="w-4 h-4 text-[#2457D6]" />
-                <span>Call: +91 92305 54211</span>
+                <span>Call: {PHONE_NUMBER_DISPLAY}</span>
               </div>
             </div>
           </div>

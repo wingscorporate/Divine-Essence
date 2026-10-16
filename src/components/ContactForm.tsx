@@ -18,6 +18,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { LeadFormData, ServiceInterest } from '../types';
+import { PHONE_NUMBER_DISPLAY, getWhatsAppUrl } from '../phoneNumber';
 
 interface ContactFormProps {
   initialService?: ServiceInterest;
@@ -82,7 +83,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
     ].filter(Boolean);
 
     const message = lines.join('\n');
-    return `https://wa.me/919230554211?text=${encodeURIComponent(message)}`;
+    return getWhatsAppUrl(message);
   };
 
   const validate = (): boolean => {
@@ -177,7 +178,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                   Thank You, {formData.fullName}!
                 </h3>
                 <p className="text-sm text-[#667085] max-w-md mx-auto">
-                  Your reference ID is <strong>{referenceId}</strong>. We are connecting you directly to our WhatsApp seller onboarding desk at <strong>+91 92305 54211</strong>.
+                  Your reference ID is <strong>{referenceId}</strong>. We are connecting you directly to our WhatsApp seller onboarding desk at <strong>{PHONE_NUMBER_DISPLAY}</strong>.
                 </p>
               </div>
 
@@ -185,7 +186,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
               <div className="bg-[#E7F9EE] border-2 border-[#25D366]/40 rounded-2xl p-6 max-w-lg mx-auto shadow-xs">
                 <div className="flex items-center justify-center gap-2 text-sm font-bold text-[#166534] mb-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-ping" />
-                  <span>Redirecting to WhatsApp (+91 92305 54211)</span>
+                  <span>Redirecting to WhatsApp ({PHONE_NUMBER_DISPLAY})</span>
                 </div>
                 <p className="text-xs text-[#374151] mb-4">
                   If the WhatsApp chat didn't open automatically in a new window, tap the button below to continue with your pre-filled inquiry:
@@ -197,7 +198,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-[#25D366] hover:bg-[#20BD5A] active:bg-[#1DA851] shadow-md transition-all cursor-pointer"
                 >
                   <MessageCircle className="w-5 h-5 fill-white text-white" />
-                  <span>Continue on WhatsApp (+91 92305 54211)</span>
+                  <span>Continue on WhatsApp ({PHONE_NUMBER_DISPLAY})</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </a>
               </div>

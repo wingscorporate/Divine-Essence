@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowUpRight, PhoneCall } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
+import { PHONE_NUMBER_DISPLAY, getWhatsAppUrl } from '../phoneNumber';
 
 interface NavbarProps {
   onOpenContact: (service?: 'Product Supplier' | 'Shipping Partner' | 'Both Services') => void;
@@ -108,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
           {/* Right-side CTAs */}
           <div className="hidden sm:flex items-center gap-3">
             <a
-              href="https://wa.me/919230554211?text=Hi%20Divine%20Essence%2C%20I%20want%20to%20talk%20to%20your%20team%20about%20e-commerce%20sourcing%20and%20shipping"
+              href={getWhatsAppUrl('Hi Divine Essence, I want to talk to your team about e-commerce sourcing and shipping')}
               target="_blank"
               rel="noopener noreferrer"
               className="px-3.5 py-2 text-xs md:text-sm font-medium text-[#152033] hover:text-[#2457D6] hover:bg-[#F7F9FC] border border-[#E2E8F0] rounded-lg transition-colors flex items-center gap-1.5"
@@ -176,14 +177,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
 
           <div className="pt-4 border-t border-[#F1F5F9] flex flex-col gap-2">
             <a
-              href="https://wa.me/919230554211?text=Hi%20Divine%20Essence%2C%20I%20want%20to%20talk%20to%20your%20team"
+              href={getWhatsAppUrl('Hi Divine Essence, I want to talk to your team')}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full py-2.5 text-sm font-medium text-[#152033] bg-[#F7F9FC] hover:bg-[#EEF5FF] border border-[#E2E8F0] rounded-lg text-center flex items-center justify-center gap-2"
             >
               <PhoneCall className="w-4 h-4 text-[#2457D6]" />
-              Talk to Our Team (+91 92305 54211)
+              Talk to Our Team ({PHONE_NUMBER_DISPLAY})
             </a>
             <button
               onClick={() => {
