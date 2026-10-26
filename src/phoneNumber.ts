@@ -8,10 +8,10 @@
 // ============================================================
 
 // Digits only, including country code — no spaces, "+", or dashes.
-export const PHONE_NUMBER_DIGITS = '917439590585';
+export const PHONE_NUMBER_DIGITS = '918016787121';
 
 // Display format shown to users across the website.
-export const PHONE_NUMBER_DISPLAY = '+91 74395 90585';
+export const PHONE_NUMBER_DISPLAY = '+91 80167 87121';
 
 // Pre-built WhatsApp base URL for convenience.
 export const WHATSAPP_BASE_URL = `https://wa.me/${PHONE_NUMBER_DIGITS}`;
